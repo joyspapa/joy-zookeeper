@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="60 seconds">
+  <!-- <property name="logFilePath" value="${daemon.home}/logs" />-->
+  <!-- http://www.mkyong.com/logging/logback-xml-example/ -->
+
+  <!--online-configuration-START -->
+  <contextName>ObzenLogConfig</contextName>
+  <jmxConfigurator/>
+
+  <!-- Stop output INFO at start -->
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+  
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <!--<charset>UTF-8</charset>   Windows에서는 제거 -->
+      <pattern>[%d: %t] %-5level %logger{0} : %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- 
+  <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logFilePath}/service.log</file>
+		
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logFilePath}/service_%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>5MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+
+      <maxHistory>2</maxHistory>
+    </rollingPolicy>
+
+	
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>[%d: %t] %-5level %logger{0} : %msg%n</pattern>
+    </encoder>
+  </appender>
+  -->
+  
+  <logger name="io.vertx.core.impl.BlockedThreadChecker" level="OFF" />
+ 	
+  <logger name="io.vertx" level="error" additivity="false">
+    <appender-ref ref="console" />
+  </logger>
+
+ 	<logger name="io.netty" level="error" additivity="false">
+    <appender-ref ref="console" />
+  </logger>
+
+  <logger name="ch.qos.logback" level="error" additivity="false">
+    <appender-ref ref="console" />
+  </logger>
+
+  <logger name="com.joy" level="debug" additivity="false">
+    <appender-ref ref="console" />
+    <!-- <appender-ref ref="rollingFile" />-->
+  </logger>
+
+  <root level="warn">
+    <appender-ref ref="console" />
+  </root>
+
+</configuration>

@@ -1,0 +1,44 @@
+allprojects {
+	apply plugin: 'java'
+	apply plugin: 'application'
+	apply plugin: 'eclipse'
+  
+	ext {
+		zookeeperVersion = '3.4.10'
+		logbackVersion = '1.2.3'
+	}
+
+	repositories {
+		// Maven Central Proxy
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+        //=========================================
+        // zookeeper
+        //=========================================
+        compile "org.apache.zookeeper:zookeeper:$zookeeperVersion"
+        
+	    //=========================================
+        // logback
+        //=========================================
+	    compile "ch.qos.logback:logback-classic:$logbackVersion"
+
+	    //=========================================
+        // JUnit
+        //=========================================
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.apache.ignite:ignite-core:2.6.0'
+
+    }
+
+    //SLF4J: Found binding in [slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    //SLF4J: Found binding in [logback-classic-1.1.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    configurations {
+      // disable for spark submit
+      all*.exclude group: "log4j", module: "log4j"
+	  all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
+    }
+}
