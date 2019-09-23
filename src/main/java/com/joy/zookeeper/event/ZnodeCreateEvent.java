@@ -1,4 +1,4 @@
-package com.obzen.zookeeper.event;
+package com.joy.zookeeper.event;
 
 import java.net.InetAddress;
 import java.util.concurrent.CountDownLatch;
